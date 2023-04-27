@@ -1,6 +1,15 @@
 <template>
     <div>
       <ConTitle :topTitle="topTitle"></ConTitle>
+
+      <el-form ref="form" :model="query" label-width="80px" style="background-color: #fff;margin: 10px 0 0 0;
+      height: 50px;padding: 5px;padding-left: 10px;">
+      <span style="font-size: 14px;">选择月份:   </span>
+      <el-date-picker v-model="query.date" type="month" placeholder="选择月" style="height: 20px;" 
+      @change="changdata"
+      value-format="yyyy-MM"></el-date-picker>
+      </el-form>
+
       <el-table :data="gategroupList" style="width: 100% " fixed="true">
         <el-table-column type="index" > </el-table-column>
         <el-table-column prop="id" label="充值ID" > </el-table-column>
@@ -56,6 +65,7 @@
         query: {
             currPage: 1, //当前的页码
         pageSize: 5, //当前的每页条数
+        date:""
         },
           }
       },
@@ -85,6 +95,9 @@
         // 重新获取数据
         this.getData();
       },
+      changdata(){
+        this.getData();
+      }
       },
     filters: {
       //   将事件戳转日期时间
