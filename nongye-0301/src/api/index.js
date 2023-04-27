@@ -28,3 +28,16 @@ export const $rechargeList = (params) => {
 export const $usageList = (params) => {
     return resquest.get('/fee/usageList',{params});
 }
+
+// 增加 post
+export const $groupAdd = (data) => {
+    return resquest.post('/group/add', data);
+}
+//修改  post
+export const $groupEdit = (data) => {
+    return resquest.post('/group/edit', data);
+}
+//删除  post
+export const $groupDel = (data) => {
+    return resquest.post('/group/del', data);
+}

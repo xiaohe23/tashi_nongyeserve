@@ -2,27 +2,47 @@
   <div>
     <ConTitle :topTitle="topTitle"></ConTitle>
 
-    <el-form ref="form" :model="query" label-width="80px" style=
-    "background-color: #fff;height: 50px;margin: 10px 0 10px 0;">
-
-  <el-form-item label="群组名称" >
-          <el-input v-model="query.keyword" style="width: 400px;line-height: 50px;"></el-input>
+    <div class="clearfix">
+    <el-form ref="form" :model="query" label-width="5rem" style=
+    "background-color: #fff;height: 3.125rem;margin: .625rem 0 .625rem 0;">
+      <el-form-item label="群组名称" >
+          <el-input v-model="query.keyword" style="width: 25rem;line-height: 3.125rem;"></el-input>
           <el-button type="primary" @click="onSubmit">搜索</el-button>
           <el-button>清除条件</el-button>
-  </el-form-item>
-  
-</el-form>
+          <el-button class="addbtn" type="primary" @click="addFun"
+          style="float: right;margin-top: .3125rem;margin-right: .3125rem;">新增群组+</el-button> 
+      </el-form-item>
+    </el-form>
 
+  </div>
+    
+   <el-dialog title="添加群组信息" :visible.sync="dialogVisible" width="30%">
+      <el-form
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="6.25rem"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="群组名称" prop="groupName">
+          <el-input
+            v-model="ruleForm.groupName"
+            placeholder="请输入群组名称"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleOK">确 定</el-button>
+      </span>
+    </el-dialog>
     <el-table :data="gategroupList" style="width: 100% " fixed="true">
       <el-table-column type="index" > </el-table-column>
       <el-table-column prop="groupName" label="群组名称" > </el-table-column>
       <el-table-column prop="nodeNums" label="传感器节点数量" > </el-table-column>
       <el-table-column prop="onlineNums" label="在线设备数量" > </el-table-column>
-      <el-table-column prop="cTime" label="创建时间">
-        <!-- <template slot-scope="scope">
-          {{ scope.row.cTime | formatTime }}
-        </template> -->
-      </el-table-column>
+      <el-table-column prop="cTime" label="创建时间"></el-table-column>
       <el-table-column
       fixed="right"
       label="操作"
@@ -49,7 +69,8 @@
 <script>
 import ConTitle from '@/components/ConTitle.vue'
 import moment from 'moment'
-import {$gategroupList} from '@/api/index.js'
+import {$gategroupList,$groupAdd } from '@/api/index.js'
+
 export default {
     naem:'gateGroup',
     components:{
@@ -70,7 +91,15 @@ export default {
         eui:'', //当前的每页条数
         keyword:''
       },
-        }
+      ruleForm: { groupName: "" },
+      //   验证规则
+      rules: {
+        groupName: [
+          { required: true, message: "请输入群组名称", trigger: "blur" },
+        ],
+      },
+      dialogVisible: false,
+    }
     },
     mounted(){
         this.getData()
@@ -92,17 +121,44 @@ export default {
       console.log("每页显示的条数发生变化了", value);
     //   this.query.pageSize = value;
       // 当前页需要重置为1
-      this.query.pageNum = 1;
+      this.query.currPage = 1;
       // 重新获取数据
       this.getData();
     },
     // 当前的页码
     handleCurrentChange(page) {
       console.log("当前页被改变了", page);
-      this.query.pageNum = page;
+      this.query.currPage = page;
       // 重新获取数据
       this.getData();
     },
+
+    addFun() {
+      // 显示弹窗
+      this.dialogVisible = true;
+    },
+    // 确认添加
+    handleOK() {
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          console.log("submit!");
+          //调用添加接口
+          $groupAdd({ groupName: this.ruleForm.groupName }).then((res) => {
+            console.log(res);
+            if (res.msg == "success") {
+              //成功添加
+              // 关闭弹窗
+              this.dialogVisible = false;
+              this.getData();
+            }
+          });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+
     },
   filters: {
     //   将事件戳转日期时间
