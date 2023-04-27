@@ -1,0 +1,23 @@
+{
+  "id": "2827582",
+  "name": "智慧农业",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1644185",
+      "name": "电池电量1",
+      "font_class": "dianchidianliang",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "2477523",
+      "name": "压力传感器",
+      "font_class": "yalichuanganqi",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    }
+  ]
+}

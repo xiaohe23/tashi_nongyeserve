@@ -1,0 +1,41 @@
+{
+  "name": "koa-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "json": "json-server --watch ./db/db.json --port 9007",
+    "pull": "git pull origin master", 
+    "debug":"node --inspect app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.19.2",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.0",
+    "koa-jwt": "^3.5.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.2.0",
+    "lodash": "^4.17.21",
+    "mongojs": "^2.6.0",
+    "mongoose": "^5.5.11",
+    "os": "^0.1.1",
+    "underscore": "^1.9.1",
+    "util": "^0.12.0",
+    "vue": "^2.6.10",
+    "vue-server-renderer": "^2.6.10"
+  },
+  "dependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-register": "^6.26.0",
+    "mockjs": "^1.1.0",
+    "moment": "^2.29.1",
+    "monent": "0.0.2-security",
+    "shelljs": "^0.8.3",
+    "uuid": "^3.3.3"
+  }
+}
