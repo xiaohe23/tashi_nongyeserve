@@ -174,6 +174,7 @@
         if (queryStr != "") {
        queryStr.date = this.dateStr;
       }
+      console.log(queryStr);
       $sensor(queryStr).then((res) => {
         // console.log(res);
         this.gategroupList = res.data;

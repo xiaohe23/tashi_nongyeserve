@@ -29,6 +29,15 @@ export const $usageList = (params) => {
     return resquest.get('/fee/usageList',{params});
 }
 
+//获取金额
+export const $balance = (params) => {
+    return resquest.get('/fee/balance',{params});
+}
+
+export const $recharge= (data) => {
+    return resquest.post('/fee/recharge',data);
+}
+
 // 增加 post
 export const $groupAdd = (data) => {
     return resquest.post('/group/add', data);
@@ -40,4 +49,15 @@ export const $groupEdit = (data) => {
 //删除  post
 export const $groupDel = (data) => {
     return resquest.post('/group/del', data);
+}
+
+
+//安全模块
+
+export const $securitylist = (params) => {
+    return resquest.post('/security/list', {params});
+}
+
+export const $securityadd = (data) => {
+    return resquest.post('/security/add', data);
 }

@@ -16,7 +16,7 @@
 
   </div>
     
-   <el-dialog title="添加群组信息" :visible.sync="dialogVisible" width="30%">
+   <el-dialog :title= editId?editname[0]:editname[1]  :visible.sync="dialogVisible" width="30%">
       <el-form
         :model="ruleForm"
         :rules="rules"
@@ -24,7 +24,7 @@
         label-width="6.25rem"
         class="demo-ruleForm"
       >
-        <el-form-item label="群组名称" prop="groupName">
+        <el-form-item label="群组名称" :prop=ruleForm.groupName>
           <el-input
             v-model="ruleForm.groupName"
             placeholder="请输入群组名称"
@@ -48,8 +48,11 @@
       label="操作"
       width="100">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">重命名</el-button>
-        <el-button type="text" size="small">删除</el-button>
+        <el-button  type="text" size="small"  
+        @click="editFun(scope.row.id, scope.row.groupName)">重命名</el-button>
+
+        <el-button type="text" size="small"
+        @click="delFun(scope.row.id)">删除</el-button>
       </template>
     </el-table-column>
     </el-table>
@@ -69,7 +72,7 @@
 <script>
 import ConTitle from '@/components/ConTitle.vue'
 import moment from 'moment'
-import {$gategroupList,$groupAdd } from '@/api/index.js'
+import {$gategroupList,$groupAdd,$groupEdit } from '@/api/index.js'
 
 export default {
     naem:'gateGroup',
@@ -99,6 +102,9 @@ export default {
         ],
       },
       dialogVisible: false,
+
+      editId: "",
+      editname:["修改群组名称","新建群组"]
     }
     },
     mounted(){
@@ -137,11 +143,33 @@ export default {
       // 显示弹窗
       this.dialogVisible = true;
     },
+
+     // 修改
+     editFun(id, name) {
+      console.log("修改函数触发了", id, name);
+      this.dialogVisible = true;
+      this.editId = id;
+      this.ruleForm.groupName = name;
+    },
     // 确认添加
     handleOK() {
+      // 判断是添加还是修改
+      if (this.editId == "") {
+        //添加
+        this.addItem();
+      } else {
+        //修改
+        this.editItem();
+        this.editId == ""
+      }
+    },
+
+    // 添加函数8
+    addItem() {
+     // validate是elememnt ui 的api
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          console.log("submit!");
+          // console.log("submit!");
           //调用添加接口
           $groupAdd({ groupName: this.ruleForm.groupName }).then((res) => {
             console.log(res);
@@ -158,7 +186,29 @@ export default {
         }
       });
     },
-
+    editItem() {
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          console.log("submit!");
+          //调用添加接口
+          $groupEdit({
+            groupName: this.ruleForm.groupName,
+            id: this.editId,
+          }).then((res) => {
+            console.log(res);
+            if (res.msg == "success") {
+              //成功添加
+              // 关闭弹窗
+              this.dialogVisible = false;
+              this.getData();
+            }
+          });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    }
     },
   filters: {
     //   将事件戳转日期时间

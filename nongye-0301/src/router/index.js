@@ -52,8 +52,12 @@ const routes = [
     path:'/fee',
     name:'fee',
     component:layout,
-    redirect:'/fee/rechargeList',
+    redirect:'/fee/feeBalance',
     children:[
+      {
+        path:'feeBalance',name:'feeBalance',
+        component: () => import(/* webpackChunkName: "feeBalance" */ '../views/fee/feeBalance.vue') 
+      },
       {
         path:'rechargeList',name:'rechargeList',
         component: () => import(/* webpackChunkName: "rechargeList" */ '../views/fee/rechargeList.vue') 
@@ -64,6 +68,23 @@ const routes = [
       }
     ]
   },
+  {
+      path:'/security',
+      name:'security',
+      component:layout,
+      redirect:'/security/securityList',
+      children:[
+        {
+          path:'securityadd',name:'securityadd',
+          component: () => import(/* webpackChunkName: "feeBalance" */ '../views/security/securityAdd.vue') 
+        },
+        {
+          path:'securityList',name:'securitylist',
+          component: () => import(/* webpackChunkName: "rechargeList" */ '../views/security/securityList.vue') 
+        },
+     
+      ]
+    },
   {
     path: '/login',
     name: 'login',

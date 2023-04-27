@@ -39,6 +39,7 @@
         </template>
         <el-menu-item-group>
           <template slot="title"></template>
+          <el-menu-item index="/fee/feeBalance">账户信息</el-menu-item>
           <el-menu-item index="/fee/rechargeList">充值记录</el-menu-item>
           <el-menu-item index="/fee/usageList">使用记录</el-menu-item>
         </el-menu-item-group>
@@ -61,8 +62,8 @@
         </template>
         <el-menu-item-group>
           <template slot="title"></template>
-          <el-menu-item index="4-1">仪表盘</el-menu-item>
-          <el-menu-item index="4-2">设备数据</el-menu-item>
+          <el-menu-item index="/security/securityadd">添加密钥</el-menu-item>
+          <el-menu-item index="/security/securityList">密钥列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="6">
