@@ -98,7 +98,7 @@
         width="100">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">重命名</el-button>
-          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="sensoredit(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
       </el-table>
@@ -118,7 +118,7 @@
   <script>
   import ConTitle from '@/components/ConTitle.vue'
   import moment from 'moment'
-  import {$sensor} from '@/api/index.js'
+  import {$sensor,$sensoredit} from '@/api/index.js'
   export default {
       naem:'gateGroup',
       components:{
@@ -174,13 +174,41 @@
         if (queryStr != "") {
        queryStr.date = this.dateStr;
       }
-      console.log(queryStr);
+
+      
+      // console.log(queryStr);
       $sensor(queryStr).then((res) => {
         // console.log(res);
         this.gategroupList = res.data;
         this.total = res.total;
       });
+      
     },
+    sensoredit(id){
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          console.log(id);
+          $sensoredit({id:id}).then(
+          res=>{
+            if(res.msg=="success"){
+              this.getData()
+            }
+          }
+        )
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+      },
       handleSizeChange(value) {
         console.log("每页显示的条数发生变化了", value);
       //   this.query.pageSize = value;

@@ -49,11 +49,11 @@
     <el-table-column
       fixed="right"
       label="操作"
-      width="100">
-      <template>
+      width="100" prop="id">
+      <template slot-scope="scope">
         <div style="display:flex;justify-content: space-around;">
           <div><el-button type="primary" icon="el-icon-edit" circle></el-button></div>
-        <div><el-button type="danger" icon="el-icon-delete" circle></el-button></div>
+        <div><el-button type="danger" icon="el-icon-delete" circle  @click="secritydel(scope.row.id)"></el-button></div>
         </div>
         
       </template>
@@ -66,7 +66,7 @@
 
 <script>
 import ConTitle from '@/components/ConTitle.vue'
-import {$securitylist} from '@/api/index.js'
+import {$securitylist,$securitydel} from '@/api/index.js'
 import moment from 'moment'
 
 export default {
@@ -85,13 +85,42 @@ export default {
       }
     },
     mounted(){
-      $securitylist().then(
+      this.getData()
+    },
+    methods:{
+      getData(){
+        $securitylist().then(
         (res)=>{
           this.securitylist=res.data
         }
-      )
-        
-      
+      )  
+      },
+
+      secritydel(id){
+              
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          $securitydel({id:id}).then(
+          res=>{
+            if(res.msg=="success"){
+              this.getData()
+            }
+          }
+        )
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+      }
     },
     filters: {
     //   将事件戳转日期时间

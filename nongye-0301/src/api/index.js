@@ -9,6 +9,11 @@ export const $sensorCount = () => {
 export const $sensorList=()=>{
     return resquest.get('/device/sensorList')
 }
+//传感器删除
+export const $sensoredit=()=>{
+    return resquest.get('/sensor//sensor/edit')
+}
+
 export const $gatewayList = (params) => {
     return resquest.get('/gateway/list',{params});
 }
@@ -56,6 +61,11 @@ export const $groupDel = (data) => {
 
 export const $securitylist = (params) => {
     return resquest.post('/security/list', {params});
+}
+
+//删除密钥
+export const $securitydel = (data) => {
+    return resquest.post('/security/del', data);
 }
 
 export const $securityadd = (data) => {

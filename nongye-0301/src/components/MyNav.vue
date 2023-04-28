@@ -9,74 +9,20 @@
       active-text-color="#ffd04b"
       :router="true"
     >
-      <el-submenu index="1">
+     <!-- //动态渲染侧拉框 -->
+      <el-submenu :index="item.path" v-for="item in routes" :key="item.path">
         <template slot="title">
-          <i class="iconfont icon-panel"></i>
-          <span>首页</span>
+          <i class="iconfont" :class="item.meta.icon"></i>
+          <span>{{ item.meta.title }}</span>
         </template>
         <el-menu-item-group>
           <template slot="title"></template>
-          <el-menu-item index="/home/dashboard">仪表盘</el-menu-item>
-          <el-menu-item index="/home/data">设备数据</el-menu-item>
+          <el-menu-item :index="item.path+'/'+i.path" v-for="i in item.children" :key="item.path+'/'+i.path"
+          >{{ i.meta.title }}</el-menu-item>
+          
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="iconfont icon-luyouqi"></i>
-          <span>设备</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title"></template>
-          <el-menu-item index="/device/gateway">网关</el-menu-item>
-          <el-menu-item index="/device/gategroup">设备群组</el-menu-item>
-          <el-menu-item index="/device/chanList">传感器列表</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title">
-          <i class="iconfont icon-fyxx"></i>
-          <span>计费</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title"></template>
-          <el-menu-item index="/fee/feeBalance">账户信息</el-menu-item>
-          <el-menu-item index="/fee/rechargeList">充值记录</el-menu-item>
-          <el-menu-item index="/fee/usageList">使用记录</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="iconfont icon-signal"></i>
-          <span>测量类型</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title"></template>
-          <el-menu-item index="4-1">仪表盘</el-menu-item>
-          <el-menu-item index="4-2">设备数据</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="5">
-        <template slot="title">
-          <i class="iconfont icon-anquan"></i>
-          <span>安全</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title"></template>
-          <el-menu-item index="/security/securityadd">添加密钥</el-menu-item>
-          <el-menu-item index="/security/securityList">密钥列表</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="6">
-        <template slot="title">
-          <i class="iconfont icon-account"></i>
-          <span>账号</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title"></template>
-          <el-menu-item index="4-1">仪表盘</el-menu-item>
-          <el-menu-item index="4-2">设备数据</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
+
     </el-menu>
   </div>
 
@@ -85,8 +31,23 @@
   <script>
   export default {
     name: "MyNav",
+    data(){
+      return{
+        routes: [],
+      }
+    },
     mounted(){
-        // console.log(this.$router);
+        console.log(this.$router);
+        let routes=[]
+        this.$router.options.routes.forEach(
+          item=>{
+            if(item.meta){
+              routes.push(item)
+            }
+          }
+        )
+        this.routes=routes
+        console.log(this.routes);
     }
   };
   </script>
