@@ -1,6 +1,11 @@
 <template>
      <div class="header-con">
     <img src="../assets/img/logo.png" alt="" class="img1" />
+    <span
+        class="on-off"
+        :class="sidebar ? 'el-icon-s-unfold' : 'el-icon-s-fold'"
+        @click="TOGGLE_SIDEBAR"
+      ></span>
     <div class="header-text">
       <span>张总(超级管理员)</span>
       <img src="../assets/img/gita.gif" alt="" class="img2" />
@@ -13,8 +18,15 @@
 </template>
   
   <script>
+  import {mapGetters,mapMutations} from 'vuex'
   export default {
     name: "MyHeader",
+    computed: {
+   ...mapGetters(["sidebar"]),
+ },
+   methods: {
+   ...mapMutations(["TOGGLE_SIDEBAR"]),
+ },
   };
   </script>
   

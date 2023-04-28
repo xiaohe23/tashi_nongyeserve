@@ -80,6 +80,26 @@ const routes = [
     ]
   },
   {
+    path:'/measurement',
+    name:'measurement',
+    component:layout,
+    meta: { title: "测量类型", icon: "icon-signal" },
+    redirect:'/measurement/measurementadd',
+    children:[
+      {
+        path:'measurementadd',name:'measurementAdd',
+        meta: { title: "添加测量类型"},
+        component: () => import(/* webpackChunkName: "measurementAdd" */ '../views/measurement/measurementAdd.vue') 
+      },
+      {
+        path:'measurementlist',name:'measurementlist',
+        meta: { title: "测量类型列表"},
+        component: () => import(/* webpackChunkName: "measurementlist" */ '../views/measurement/measurementList.vue') 
+      }
+      
+    ]
+  },
+  {
       path:'/security',
       name:'security',
       component:layout,
@@ -103,7 +123,15 @@ const routes = [
     path: '/login',
     name: 'login',
     meta: { title: "账号", icon: "icon-account" },
-    component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue')
+    redirect:'/login/loginindex',
+    component: layout,
+    children:[
+      {
+        path:'loginindex',name:'loginindex',
+        meta: { title: "登录页"},
+        component: () => import(/* webpackChunkName: "feeBalance" */ '../views/login/index.vue') 
+      },
+    ]
   },
   {
     path: '*',

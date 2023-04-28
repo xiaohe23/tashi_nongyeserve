@@ -8,6 +8,8 @@
       text-color="#fff"
       active-text-color="#ffd04b"
       :router="true"
+      :collapse="sidebar"
+      
     >
      <!-- //动态渲染侧拉框 -->
       <el-submenu :index="item.path" v-for="item in routes" :key="item.path">
@@ -29,12 +31,16 @@
   </template>
   
   <script>
+  import { mapGetters } from "vuex";
   export default {
     name: "MyNav",
     data(){
       return{
         routes: [],
       }
+    },
+    computed:{
+      ...mapGetters(["sidebar"]),
     },
     mounted(){
         console.log(this.$router);
@@ -53,9 +59,12 @@
   </script>
   
   <style scoped lang="scss">
-        .nav-con {
+  .nav-con {
   overflow: hidden;
-  width: 165px;
+  // width: 165px;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
 }
 .el-menu {
   border-right: none;

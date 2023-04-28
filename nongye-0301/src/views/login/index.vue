@@ -1,5 +1,9 @@
 <template>
-    <div>登录页</div>
+    <div>
+      <div class="card">
+        <img src="@/assets/img/logo.png" alt="">
+      </div>
+    </div>
   </template>
   
   <script>
@@ -8,5 +12,17 @@
   };
   </script>
   
-  <style>
+  <style scoped lang="scss">
+  .card{
+    width: 300px;
+    height: 400px;
+    background-color: #a97b7b;
+    margin: 100px auto;
+    text-align: center;
+    img{
+      width: 120px;
+      margin-top: 15px;
+    }
+  }
+
   </style>

@@ -39,6 +39,7 @@
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
+              @change="timeerr"
             >
             </el-date-picker>
           </el-form-item>
@@ -95,7 +96,7 @@
         <el-table-column
         fixed="right"
         label="操作"
-        width="100">
+        width="100" min-width="180">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">重命名</el-button>
           <el-button type="text" size="small" @click="sensoredit(scope.row.id)">删除</el-button>
@@ -156,6 +157,9 @@
       computed:{
       dateStr() {
       // console.log(666);
+      if(this.query.date==null){
+        return "";
+      }
       let [d1, d2] = this.query.date;
       // console.log(d1, d2);
       let time1 = d1 && d1.getTime();
@@ -174,8 +178,6 @@
         if (queryStr != "") {
        queryStr.date = this.dateStr;
       }
-
-      
       // console.log(queryStr);
       $sensor(queryStr).then((res) => {
         // console.log(res);
@@ -183,6 +185,13 @@
         this.total = res.total;
       });
       
+    },
+    timeerr(){
+      // var queryStr = {...this.query };
+      //   if (queryStr != "") {
+      //  queryStr.date = this.dateStr;
+      // }
+      console.log(this.query);
     },
     sensoredit(id){
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {

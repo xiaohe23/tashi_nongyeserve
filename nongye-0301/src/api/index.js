@@ -60,7 +60,7 @@ export const $groupDel = (data) => {
 //安全模块
 
 export const $securitylist = (params) => {
-    return resquest.post('/security/list', {params});
+    return resquest.get('/security/list', {params});
 }
 
 //删除密钥
@@ -70,4 +70,22 @@ export const $securitydel = (data) => {
 
 export const $securityadd = (data) => {
     return resquest.post('/security/add', data);
+}
+
+
+//measurement测量类型
+export const $measurementlist = (params) => {
+    return resquest.get('/measurement/list', {params});
+}
+
+export const $measurementadd = (data) => {
+    return resquest.post('/measurement/add', data);
+}
+
+export const $measurementdel = (data) => {
+    return resquest.post('/measurement/del', data);
+}
+
+export const $measurementedit = (data) => {
+    return resquest.post('/measurement/edit', data);
 }
