@@ -72,6 +72,9 @@ export const $securityadd = (data) => {
     return resquest.post('/security/add', data);
 }
 
+export const $securityedit = (data) => {
+    return resquest.post('/security/edit', data);
+}
 
 //measurement测量类型
 export const $measurementlist = (params) => {
@@ -88,4 +91,11 @@ export const $measurementdel = (data) => {
 
 export const $measurementedit = (data) => {
     return resquest.post('/measurement/edit', data);
+}
+
+
+
+//登录
+export const $login = (data) => {
+    return resquest.post('/account/login', data);
 }

@@ -66,8 +66,13 @@ export default {
         {amount:this.fee.amount,type:"recharge",desc:this.fee.desc})
         .then(
         ()=>{
-           
-            this.getData()
+          this.$message({
+          message: '恭喜充值成功',
+          type: 'success'
+        });
+        this.fee.amount=''
+        this.fee.desc=''
+        this.getData()
         }
     )
 

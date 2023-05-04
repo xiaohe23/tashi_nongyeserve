@@ -122,7 +122,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    meta: { title: "账号", icon: "icon-account" },
+    // meta: { title: "账号", icon: "icon-account" },
     redirect:'/login/loginindex',
     component: layout,
     children:[

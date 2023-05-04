@@ -98,7 +98,7 @@
         label="操作"
         width="100" min-width="180">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">重命名</el-button>
+          <el-button @click="handleClick(scope.row.id)" type="text" size="small">重命名</el-button>
           <el-button type="text" size="small" @click="sensoredit(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>

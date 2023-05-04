@@ -61,14 +61,15 @@
       },
       securityaddto(){
         $securityadd(
-          {security:1,username:2,type:3,
-          desc:4
+          {security:"账号(必须)",username:this.securityAdd.tag,type:this.securityAdd.authority,desc:"描述",
+          online:this.securityAdd.online
           })
         .then(
           res=>{
             console.log(res);
             if(res.msg == "success"){
               console.log("succss");
+              this.$router.push('/security/securityList')
             }
           }
         )

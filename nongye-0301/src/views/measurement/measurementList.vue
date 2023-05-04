@@ -3,7 +3,7 @@
       <ConTitle :topTitle="topTitle"></ConTitle>
 
         <!-- 弹窗 -->
-        <el-dialog title="修改测量类型"  :visible.sync="dialogVisible" width="30%">
+        <el-dialog title="修改测量类型"  :visible.sync="dialogVisible1" width="30%">
       <el-form
         :model="measurementfrom"
         :rules="rules"
@@ -27,7 +27,7 @@
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="dialogVisible1 = false">取 消</el-button>
         <el-button type="primary" @click="handleOK">确 定</el-button>
       </span>
     </el-dialog>
@@ -109,7 +109,9 @@
             },
             measurementlist:[],
             dialogVisible:false,
+            dialogVisible1:false,
             measurementfrom:{name:'',unit:''},
+
             editid:'' ,  //传过来的id
             rules: {
         groupName: [
@@ -159,11 +161,12 @@
       //类型修改
       measurementlistedit(id){
         this.editid=id
-        this.dialogVisible=true
+        this.dialogVisible1=true
       },
       //确定
       handleOK(){
         console.log(111);
+        //传测试名称，测试单位
         $measurementedit({id:this.editid,name:this.measurementfrom.name,unit:this.measurementfrom.unit})
         .then(
             res=>{
@@ -174,7 +177,7 @@
                 
                 });
                 this.editid=""
-                this.dialogVisible=false
+                this.dialogVisible1=false
                 this.measurementfrom.name=''
                 this.measurementfrom.unit=''
               this.getData()
