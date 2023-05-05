@@ -9,10 +9,11 @@
       active-text-color="#ffd04b"
       :router="true"
       :collapse="sidebar"
-      
+      v-show="type!==''"
     >
      <!-- //动态渲染侧拉框 -->
-      <el-submenu :index="item.path" v-for="item in routes" :key="item.path">
+      <el-submenu :index="item.path" v-for="item in routes" 
+      :key="item.path" v-show="item.meta.type == type || type == 1">
         <template slot="title">
           <i class="iconfont" :class="item.meta.icon"></i>
           <span>{{ item.meta.title }}</span>
@@ -37,23 +38,25 @@
     data(){
       return{
         routes: [],
+        
       }
     },
     computed:{
-      ...mapGetters(["sidebar"]),
+      ...mapGetters(["sidebar", "type"]),
     },
     mounted(){
-        console.log(this.$router);
+        // console.log(this.$router);
         let routes=[]
         this.$router.options.routes.forEach(
           item=>{
+            // console.log(item.meta.type);
             if(item.meta){
               routes.push(item)
             }
           }
         )
         this.routes=routes
-        console.log(this.routes);
+        // console.log(this.routes);
     }
   };
   </script>

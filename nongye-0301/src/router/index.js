@@ -20,14 +20,14 @@ const routes = [
     path: '/home',
     name: 'home',
     component: layout,
-    meta: { title: "首页", icon: "icon-panel" },
+    meta: { title: "首页", icon: "icon-panel" ,  type: "2"},
     children: [
       { path: "dashboard", name: "dashboard", 
-      meta: { title: "仪表盘" },
+      meta: { title: "仪表盘" ,type: "2"},
       component: () => import(/* webpackChunkName: "dashboard" */ '../views/dashboard/index.vue') },
       
       { path: "data", name: "data", 
-      meta: { title: "设备数据"},
+      meta: { title: "设备数据" ,type: "2"},
       component: () => import(/* webpackChunkName: "data" */ '../views/dashboard/data.vue') }
     ]
   },
@@ -35,21 +35,21 @@ const routes = [
     path:'/device',
     name:'device',
     component:layout,
-    meta: { title: "设备", icon: "icon-luyouqi" },
+    meta: { title: "设备", icon: "icon-luyouqi" ,type: "2"},
     redirect:'/device/gateway',
     children:[
       {
         path:'gateway',name:'gateway',
-        meta: { title: "网关"},
+        meta: { title: "网关" ,type: "2"},
         component: () => import(/* webpackChunkName: "gateway" */ '../views/device/gateWay.vue') 
       },
       {
         path:'gategroup',name:'gategroup',
-        meta: { title: "设备群组"},
+        meta: { title: "设备群组" ,type: "2"},
         component: () => import(/* webpackChunkName: "gategroup" */ '../views/device/gateGroup.vue') 
       },{
         path:'chanList',name:'chanList',
-        meta: { title: "传感器列表"},
+        meta: { title: "传感器列表" ,type: "2"},
         component: () => import(/* webpackChunkName: "chanList" */ '../views/device/chanList.vue') 
       }
       
@@ -59,22 +59,22 @@ const routes = [
     path:'/fee',
     name:'fee',
     component:layout,
-    meta: { title: "计费", icon: "icon-fyxx" },
+    meta: { title: "计费", icon: "icon-fyxx" ,type: "2"},
     redirect:'/fee/feeBalance',
     children:[
       {
         path:'feeBalance',name:'feeBalance',
-        meta: { title: "账户信息"},
+        meta: { title: "账户信息" ,type: "2"},
         component: () => import(/* webpackChunkName: "feeBalance" */ '../views/fee/feeBalance.vue') 
       },
       {
         path:'rechargeList',name:'rechargeList',
-        meta: { title: "充值记录"},
+        meta: { title: "充值记录",type: "2"},
         component: () => import(/* webpackChunkName: "rechargeList" */ '../views/fee/rechargeList.vue') 
       },
       {
         path:'usageList',name:'usageList',
-        meta: { title: "使用记录"},
+        meta: { title: "使用记录",type: "2"},
         component: () => import(/* webpackChunkName: "usageList" */ '../views/fee/usageList.vue') 
       }
     ]
@@ -83,17 +83,17 @@ const routes = [
     path:'/measurement',
     name:'measurement',
     component:layout,
-    meta: { title: "测量类型", icon: "icon-signal" },
+    meta: { title: "测量类型", icon: "icon-signal" ,type: "2"},
     redirect:'/measurement/measurementadd',
     children:[
       {
         path:'measurementadd',name:'measurementAdd',
-        meta: { title: "添加测量类型"},
+        meta: { title: "添加测量类型",type: "2"},
         component: () => import(/* webpackChunkName: "measurementAdd" */ '../views/measurement/measurementAdd.vue') 
       },
       {
         path:'measurementlist',name:'measurementlist',
-        meta: { title: "测量类型列表"},
+        meta: { title: "测量类型列表",type: "2"},
         component: () => import(/* webpackChunkName: "measurementlist" */ '../views/measurement/measurementList.vue') 
       }
       
@@ -103,17 +103,17 @@ const routes = [
       path:'/security',
       name:'security',
       component:layout,
-      meta: { title: "安全", icon: "icon-anquan" },
+      meta: { title: "安全", icon: "icon-anquan" ,type: "1"},
       redirect:'/security/securityList',
       children:[
         {
           path:'securityadd',name:'securityadd',
-          meta: { title: "添加密钥"},
+          meta: { title: "添加密钥",type: "1"},
           component: () => import(/* webpackChunkName: "feeBalance" */ '../views/security/securityAdd.vue') 
         },
         {
           path:'securityList',name:'securitylist',
-          meta: { title: "密钥列表"},
+          meta: { title: "密钥列表",type: "1"},
           component: () => import(/* webpackChunkName: "rechargeList" */ '../views/security/securityList.vue') 
         },
      
@@ -128,7 +128,7 @@ const routes = [
     children:[
       {
         path:'loginindex',name:'loginindex',
-        meta: { title: "登录页"},
+        meta: { title: "登录页",type: "2"},
         component: () => import(/* webpackChunkName: "feeBalance" */ '../views/login/index.vue') 
       },
     ]
@@ -141,8 +141,12 @@ const routes = [
 
 ]
 
+
+
 const router = new VueRouter({
   routes
 })
+
+
 
 export default router

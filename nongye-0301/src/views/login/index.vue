@@ -75,6 +75,14 @@ export default {
   name: "indexView",
   data() {
     return {
+      options: [{
+          value: '选项1',
+          label: '中国站'
+        }, {
+          value: '选项2',
+          label: '国际站'
+        }],
+      value: '',
       ruleForm: {
         account: "", //账号
         password: "", //密码
@@ -98,9 +106,10 @@ export default {
       console.log("登录的函数触发了");
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          alert("submit!");
+          // alert("submit!");
           // 登录的所有动作我们写在vuex中
           //在这里只需要调用vuex的动作
+          this.$store.dispatch("LoginAction", this.ruleForm);
         } else {
           console.log("error submit!!");
           return false;

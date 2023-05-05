@@ -7,10 +7,10 @@
         @click="TOGGLE_SIDEBAR"
       ></span>
     <div class="header-text">
-      <span>张总(超级管理员)</span>
+      <span>{{ username==''?'请登录':username }}{{ type == "1" ? "超级" : "普通" }}管理员</span>
       <img src="../assets/img/gita.gif" alt="" class="img2" />
       <span class="line">|</span>
-      <span>退出登录</span>
+      <span @click="LoginoutAction">退出登录</span>
       <img src="../assets/img/cn.png" alt="" class="img3" />
     </div>
   </div>
@@ -18,14 +18,18 @@
 </template>
   
   <script>
-  import {mapGetters,mapMutations} from 'vuex'
+  import {mapGetters,mapMutations,mapActions} from 'vuex'
   export default {
     name: "MyHeader",
     computed: {
-   ...mapGetters(["sidebar"]),
+   ...mapGetters(["sidebar", "username", "type"]),
  },
    methods: {
    ...mapMutations(["TOGGLE_SIDEBAR"]),
+   ...mapActions(["LoginoutAction"]),
+   logout(){
+
+   }
  },
   };
   </script>

@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
+import "@/router/permission";
 import router from './router'
+
 import store from './store'
 import "./assets/iconfont/iconfont.css"
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+//引入路由守卫
 // 引入echarts
 
 import * as echarts from 'echarts';

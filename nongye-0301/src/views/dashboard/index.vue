@@ -62,11 +62,11 @@
       },
       mounted() {
           $deviceCount().then((res) => {
-              console.log(res);
+            //   console.log(res);
               this.deviceObj = res.data;
           });
           $sensorCount().then((res) => {
-              console.log(res);
+            //   console.log(res);
               this.draw(res.data);
           });
       },
@@ -155,7 +155,7 @@
                       },
                   ],
               };
-              console.log(chart1, option);
+            //   console.log(chart1, option);
               chart1.setOption(option);
               chart2.setOption(option1);
               chart3.setOption(option2);
