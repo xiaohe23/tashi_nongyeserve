@@ -9,8 +9,8 @@
     >
       <img class="img2" src="@/assets/img/cn.png" alt="" />
       <img class="img1" src="@/assets/img/logo.png" alt="" />
-      <div class="zhanghao">账号：</div>
-      <el-form-item label="" prop="account" class="inp1">      
+      <div class="zhanghao">{{$t('lang.account')}}：</div>
+      <el-form-item label=""  prop="account" class="inp1">      
         <el-input
         placeholder="请输入账号"
         v-model="ruleForm.account"
@@ -20,7 +20,7 @@
       >
       </el-input>
     </el-form-item>
-      <div class="mima">密码：</div>
+      <div class="mima">{{$t('lang.password')}}:</div>
       <el-form-item label="" prop="password" class="inp1">
         <el-input
         placeholder="请输入密码"
@@ -56,7 +56,7 @@
       <router-link to="/"></router-link>
       <img src="@/assets/img/mcafee.png" class="mcafee" />
       <div class="cn">
-        <el-select v-model="value" placeholder="中国站">
+        <el-select  v-model="lang" :placeholder="$t('lang.lang')" @change="languge">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -76,12 +76,13 @@ export default {
   data() {
     return {
       options: [{
-          value: '选项1',
-          label: '中国站'
+          value: 'en',
+          label: this.$t("lang.is")
         }, {
-          value: '选项2',
-          label: '国际站'
+          value: 'zh',
+          label: this.$t("lang.cs")
         }],
+        lang: "",
       value: '',
       ruleForm: {
         account: "", //账号
@@ -102,6 +103,13 @@ export default {
   }
   },
   methods: {
+    languge() {
+      console.log(666);
+      // 调用 vuex 中的mutations
+      this.$store.commit("SET_LANG", this.lang);
+      // 刷新页面
+      this.$router.go(0);
+    },
     submitForm() {
       console.log("登录的函数触发了");
       this.$refs.ruleForm.validate((valid) => {

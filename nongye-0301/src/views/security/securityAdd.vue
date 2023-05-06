@@ -24,7 +24,7 @@
   </el-form-item>
     <div style="display:flex;margin-right: 300px;">
       <div><el-button type="primary" size="small" @click="securityaddto">确认</el-button></div>
-      <div><el-button size="small">取消</el-button></div>
+      <div><el-button size="small" @click="clance">取消</el-button></div>
     </div>
   </el-form>
 
@@ -73,6 +73,11 @@
             }
           }
         )
+      },
+      clance(){
+        this.securityAdd.authority=''
+        this.securityAdd.tag=''
+       this.option=''
       }
 }
       

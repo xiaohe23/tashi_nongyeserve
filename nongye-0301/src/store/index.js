@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 import app from './modules/app';
 import user from './modules/user';
+import lang from './modules/lang';
 import createPersistedState from "vuex-persistedstate"
 export default new Vuex.Store({
   plugins: [createPersistedState()],
@@ -14,13 +15,14 @@ export default new Vuex.Store({
     account: state => state.user.account,
     username: state => state.user.username,
     type: state => state.user.type,
-    token: state => state.user.token
+    token: state => state.user.token,
+    locale: state => state.lang.locale
   },
   mutations: {
   },
   actions: {
   },
   modules: {
-    app,user
+    app,user,lang
   }
 })

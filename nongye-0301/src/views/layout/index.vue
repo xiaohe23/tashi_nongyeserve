@@ -60,7 +60,7 @@ export default {
     }
     .con {
       width: calc(100% - 165px);
-      // flex: 1;
+      flex: 1;
       height: 100%;
       overflow-y: scroll;
       padding: 10px;

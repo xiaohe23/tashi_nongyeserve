@@ -1,7 +1,7 @@
 <template>
   <div>
     <ConTitle :topTitle="topTitle"></ConTitle>
-    <el-dialog title="修改测量类型"  :visible.sync="dialogVisible1" width="30%">
+    <el-dialog title="修改安全密钥"  :visible.sync="dialogVisible1" width="30%">
       <el-form
         :model="securityfrom"
         :rules="rules"
@@ -9,19 +9,31 @@
         label-width="6.25rem"
         class="demo-ruleForm"
       >
-        <el-form-item label="测量类型名称" :prop=securityfrom.username>
+        <el-form-item label="安全密钥名称" :prop=securityfrom.username>
           <el-input
             v-model="securityfrom.username"
-            placeholder="请输入测量类型名称"
+            placeholder="请输入安全密钥名称"
+            props="tag"
           ></el-input>
           
         </el-form-item>
-        <el-form-item label="测量类型单位">
+        <el-form-item label="安全密钥权限" props="authority">
             <el-input
             v-model="securityfrom.type"
-            placeholder="请输入测量类型单位"
+            placeholder="请输入安全密钥权限"
           ></el-input>
         </el-form-item>
+        <el-form-item label="密钥状态" rops="online">
+    <el-select v-model="option" clearable placeholder="请选择" @change="optionchange">
+    <el-option
+      v-for="(item,index) in options"
+      :key="index"
+      :label="item" 
+      :value="item"    
+      >
+    </el-option>
+  </el-select>
+  </el-form-item>
       </el-form>
 
       <span slot="footer" class="dialog-footer">
@@ -115,14 +127,23 @@ export default {
           msg: "使用访问密钥发出http请求",         
         },
         securitylist:[],
-        securityfrom:{security:"",username:"",type:"",desc:""},
+        securityfrom:{security:"",username:"",type:"",desc:"",online:''},
         dialogVisible1:false,
         editid:'',
         rules: {
         groupName: [
           { required: true, message: "请输入群组名称", trigger: "blur" },
         ],
+        tag: [{ required: true, message: "请填写标签", trigger: "blur" }],
+        authority: [
+          { required: true, message: "请填写访问权限", trigger: "blur" },
+        ],
+        online: [
+          { required: true, message: "请选择秘钥状态", trigger: "change" },
+        ],
         },
+        options:['未使用','使用中'],
+        option:''
       }
     },
     mounted(){
@@ -146,7 +167,7 @@ export default {
         console.log(111);
         //传测试名称，测试单位
         $securityedit({id:this.editid,security:"账号",username:this.securityfrom.username,
-        type:this.securityfrom.type,desc:"描述"})
+        type:this.securityfrom.type,desc:"描述",online:this.securityfrom.online})
         .then(
             res=>{
             if(res.msg=="success"){
@@ -174,32 +195,7 @@ export default {
           }
         )
       },
-      // secrityedit(id){
-      //   this.$confirm('此操作将修改该文件, 是否继续?', '提示', {
-      //     confirmButtonText: '确定',
-      //     cancelButtonText: '取消',
-      //     type: 'warning'
-      //   }).then(() => {
-      //     $securityedit({id:id,security:"账号",username:"用户名",type:"类型",desc:"描述"
-      //     }).then(
-      //     res=>{
-      //       if(res.msg=="success"){
-      //         this.getData()
-      //       }
-      //     }
-      //   )
-      //     this.$message({
-      //       type: 'success',
-      //       message: '修改成功!'
-      //     });
-      //   }).catch(() => {
-      //     this.$message({
-      //       type: 'info',
-      //       message: '已取消删除'
-      //     });          
-      //   });
-      // },
-      //删除
+  
       secritydel(id){
               
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -224,7 +220,14 @@ export default {
             message: '已取消删除'
           });          
         });
-      }
+      },
+      optionchange(){
+          if(this.option=="未使用"){
+            this.securityfrom.online=false
+          }else{
+            this.securityfrom.online=true
+          }       
+      },
     },
     filters: {
     //   将事件戳转日期时间

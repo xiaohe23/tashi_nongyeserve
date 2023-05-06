@@ -74,14 +74,15 @@
 </template>
 
 <script>
-import moment from 'moment'
+// import moment from 'moment'
 import {$gatewayList} from '@/api/index.js'
 import ConTitle from '@/components/ConTitle.vue'
+import fitermixin from '@/mixins/fitermixin'
 export default {
     name:'gateWay',
     data(){
         return {
-            topTitle: {
+      topTitle: {
         type: "设备", //非首页，该页面的上一级
         text: "网关列表",
         msg: "展示EUI、名称、状态等设备信息，可根据EUI、状态，和绑定时问等条件筛选具体的网关。",
@@ -149,21 +150,17 @@ export default {
       this.getData()
     }
     },
-  filters: {
-    //   将事件戳转日期时间
-    formatTime(value) {
-      return moment(value).format("YYYY-MM-DD");
-    },
-    fornn(value){
-        // let ll=''
-        // if(value){
-        //     ll="在线"
-        // }else{
-        //     ll="离线"
-        // }
-        return value?'在线':'离线';
-    }
-  }
+  // filters: {
+  //   //   将事件戳转日期时间
+  //   formatTime(value) {
+  //     return moment(value).format("YYYY-MM-DD");
+  //   },
+  //   fornn(value){
+      
+  //       return value?'在线':'离线';
+  //   }
+  // },
+  mixins:[fitermixin]
 }
 </script>
 
