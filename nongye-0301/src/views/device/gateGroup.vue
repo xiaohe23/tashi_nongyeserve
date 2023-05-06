@@ -109,6 +109,7 @@ export default {
     },
     mounted(){
         this.getData()
+      
     },
     methods:{
       delFun(id){

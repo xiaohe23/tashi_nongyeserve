@@ -41,6 +41,9 @@ const i18n = new VueI18n({
   }
 })
 
+//mock.js
+require('./mock')
+
 Vue.config.productionTip = false
 
 new Vue({

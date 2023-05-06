@@ -78,6 +78,7 @@
 import {$gatewayList} from '@/api/index.js'
 import ConTitle from '@/components/ConTitle.vue'
 import fitermixin from '@/mixins/fitermixin'
+import axios from 'axios'
 export default {
     name:'gateWay',
     data(){
@@ -95,12 +96,18 @@ export default {
         eui: "",
         online:"",
         date: [],
+        mock:{}
       },
       activeName:'all',
         }
     },
     mounted(){
       this.getData();
+      axios.get('/api/user').then(
+          res=>{
+           this.mock=res
+          }
+        )
     },
     computed:{
       dateStr() {
