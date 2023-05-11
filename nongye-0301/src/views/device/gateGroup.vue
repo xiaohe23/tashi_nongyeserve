@@ -75,7 +75,7 @@ import moment from 'moment'
 import {$gategroupList,$groupAdd,$groupEdit ,$groupDel} from '@/api/index.js'
 
 export default {
-    naem:'gateGroup',
+    name:'gateGroup',
     components:{
         ConTitle
     },
